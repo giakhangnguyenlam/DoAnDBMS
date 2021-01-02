@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace DoAnDBMS.conn
 {
-    class My_DB
+    public class My_DB
     {
-        SqlConnection con = new SqlConnection(@"");
+        SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-57RHTFE;Initial Catalog=dbms_final_proj;Integrated Security=True");
 
         public SqlConnection getConnection
         {

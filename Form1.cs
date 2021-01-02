@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoAnDBMS.view;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,15 @@ namespace DoAnDBMS
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //FrmQuanLiKhachHang test = new FrmQuanLiKhachHang();
+            //FrmThemDSThue test = new FrmThemDSThue();
+            FrmThueXe test = new FrmThueXe();
+            test.Show();
+
         }
     }
 }
