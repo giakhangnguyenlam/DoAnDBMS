@@ -142,5 +142,10 @@ namespace DoAnDBMS.view
             String hieuxe = txb_SearchXe.Text;
             fillGridXe(new SqlCommand("Select * From func_TimKiemXeChuaDuocThue('" + hieuxe+"')"));
         }
+
+        private void btn_Search_Click(object sender, EventArgs e)
+        {
+            fillGridKhachHang(new SqlCommand("Select * from func_TimKiemKhachHang('" + txb_Search.Text.Trim() + "')"));
+        }
     }
 }

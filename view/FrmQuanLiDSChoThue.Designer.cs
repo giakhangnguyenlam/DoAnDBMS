@@ -354,6 +354,7 @@
             this.btn_SearchKhachHang.TabIndex = 34;
             this.btn_SearchKhachHang.Text = "Search";
             this.btn_SearchKhachHang.UseVisualStyleBackColor = true;
+            this.btn_SearchKhachHang.Click += new System.EventHandler(this.btn_SearchKhachHang_Click);
             // 
             // txb_SearchKhachHang
             // 

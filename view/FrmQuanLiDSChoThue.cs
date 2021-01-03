@@ -194,5 +194,10 @@ namespace DoAnDBMS.view
         {
             fillGridXe(new SqlCommand("Select * From func_TimKiemTrongBangChinhSuaDanhSachChoThue('" + txb_SearchXe.Text + "')"));
         }
+
+        private void btn_SearchKhachHang_Click(object sender, EventArgs e)
+        {
+            fillGridKhachHang(new SqlCommand("Select * from func_TimKiemKhachHang('" + txb_SearchKhachHang.Text.Trim() + "')"));
+        }
     }
 }

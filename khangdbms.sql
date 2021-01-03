@@ -254,6 +254,28 @@ return
 	Where khachhang.cid = hopdong.cid AND xe.bienso = hopdong.bienso AND chitiethd.sohd = hopdong.sohd
 go
 
+
+--Sử dụng Trigger để trả xe cho chủ (trả xe khi xe có trong kho)
+Create Trigger tg_TraXeChoChuXe on dbo.hopdong for delete
+AS
+Begin
+	Declare @chuxe int, @sohd int, @bienso VARCHAR(20), @oid VARCHAR(20), @cosan int
+	Select @sohd=sohd, @oid=cid, @bienso=bienso from deleted
+	--Là chủ xe
+	Select @chuxe=Count(*) From dbo.sohuuxe Where bienso=@bienso AND oid=@oid
+	if(@chuxe > 0)
+	Begin
+		Select @cosan=cosan From dbo.xe Where bienso=@bienso
+		if(@cosan = 0)
+			Begin
+				print N'Xin lỗi! Xe không có trong kho để trả'
+				rollback tran
+			End
+	End
+End
+
+
 Select * from dbo.thanhtoanhd
 go
 Exec pro_ThemThanhToanHopDongThue 1006, 'khang', 'nguyen', '2021-01-03 09:47:51.347', 10000
+Select * From dbo.thanhtoanhd
