@@ -59,9 +59,14 @@
             this.txb_SearchKhachHang = new System.Windows.Forms.TextBox();
             this.lbl_SearchKhachHang = new System.Windows.Forms.Label();
             this.btn_Sua = new System.Windows.Forms.Button();
-            this.btn_Xoa = new System.Windows.Forms.Button();
+            this.dtgv_BangChinhSuaChoThue = new System.Windows.Forms.DataGridView();
+            this.btn_TaoMoi = new System.Windows.Forms.Button();
+            this.btn_SearchXe = new System.Windows.Forms.Button();
+            this.txb_SearchXe = new System.Windows.Forms.TextBox();
+            this.lbl_SearchXe = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ptb_Anh)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgv_quanlikhachhang)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgv_BangChinhSuaChoThue)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_FirstName
@@ -267,7 +272,7 @@
             // 
             this.btn_Them.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.btn_Them.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Them.Location = new System.Drawing.Point(27, 637);
+            this.btn_Them.Location = new System.Drawing.Point(13, 637);
             this.btn_Them.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Them.Name = "btn_Them";
             this.btn_Them.Size = new System.Drawing.Size(181, 64);
@@ -337,7 +342,7 @@
             this.dtgv_quanlikhachhang.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dtgv_quanlikhachhang.Location = new System.Drawing.Point(466, 79);
             this.dtgv_quanlikhachhang.Name = "dtgv_quanlikhachhang";
-            this.dtgv_quanlikhachhang.Size = new System.Drawing.Size(371, 305);
+            this.dtgv_quanlikhachhang.Size = new System.Drawing.Size(371, 257);
             this.dtgv_quanlikhachhang.TabIndex = 31;
             this.dtgv_quanlikhachhang.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgv_quanlikhachhang_CellClick);
             // 
@@ -370,32 +375,73 @@
             // 
             this.btn_Sua.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btn_Sua.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Sua.Location = new System.Drawing.Point(244, 637);
+            this.btn_Sua.Location = new System.Drawing.Point(229, 637);
             this.btn_Sua.Margin = new System.Windows.Forms.Padding(4);
             this.btn_Sua.Name = "btn_Sua";
             this.btn_Sua.Size = new System.Drawing.Size(181, 64);
             this.btn_Sua.TabIndex = 35;
             this.btn_Sua.Text = "Chỉnh sửa";
             this.btn_Sua.UseVisualStyleBackColor = false;
+            this.btn_Sua.Click += new System.EventHandler(this.btn_Sua_Click);
             // 
-            // btn_Xoa
+            // dtgv_BangChinhSuaChoThue
             // 
-            this.btn_Xoa.BackColor = System.Drawing.Color.Aqua;
-            this.btn_Xoa.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Xoa.Location = new System.Drawing.Point(454, 637);
-            this.btn_Xoa.Margin = new System.Windows.Forms.Padding(4);
-            this.btn_Xoa.Name = "btn_Xoa";
-            this.btn_Xoa.Size = new System.Drawing.Size(181, 64);
-            this.btn_Xoa.TabIndex = 36;
-            this.btn_Xoa.Text = "Xóa";
-            this.btn_Xoa.UseVisualStyleBackColor = false;
+            this.dtgv_BangChinhSuaChoThue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgv_BangChinhSuaChoThue.Location = new System.Drawing.Point(466, 388);
+            this.dtgv_BangChinhSuaChoThue.Name = "dtgv_BangChinhSuaChoThue";
+            this.dtgv_BangChinhSuaChoThue.Size = new System.Drawing.Size(371, 225);
+            this.dtgv_BangChinhSuaChoThue.TabIndex = 36;
+            this.dtgv_BangChinhSuaChoThue.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgv_BangChinhSuaChoThue_CellClick);
             // 
-            // FrmThemDSChoThue
+            // btn_TaoMoi
+            // 
+            this.btn_TaoMoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.btn_TaoMoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_TaoMoi.Location = new System.Drawing.Point(441, 637);
+            this.btn_TaoMoi.Margin = new System.Windows.Forms.Padding(4);
+            this.btn_TaoMoi.Name = "btn_TaoMoi";
+            this.btn_TaoMoi.Size = new System.Drawing.Size(181, 64);
+            this.btn_TaoMoi.TabIndex = 37;
+            this.btn_TaoMoi.Text = "Tạo mới";
+            this.btn_TaoMoi.UseVisualStyleBackColor = false;
+            this.btn_TaoMoi.Click += new System.EventHandler(this.btn_TaoMoi_Click);
+            // 
+            // btn_SearchXe
+            // 
+            this.btn_SearchXe.Location = new System.Drawing.Point(712, 347);
+            this.btn_SearchXe.Name = "btn_SearchXe";
+            this.btn_SearchXe.Size = new System.Drawing.Size(90, 35);
+            this.btn_SearchXe.TabIndex = 40;
+            this.btn_SearchXe.Text = "Search";
+            this.btn_SearchXe.UseVisualStyleBackColor = true;
+            this.btn_SearchXe.Click += new System.EventHandler(this.btn_SearchXe_Click);
+            // 
+            // txb_SearchXe
+            // 
+            this.txb_SearchXe.Location = new System.Drawing.Point(551, 354);
+            this.txb_SearchXe.Name = "txb_SearchXe";
+            this.txb_SearchXe.Size = new System.Drawing.Size(119, 21);
+            this.txb_SearchXe.TabIndex = 39;
+            // 
+            // lbl_SearchXe
+            // 
+            this.lbl_SearchXe.AutoSize = true;
+            this.lbl_SearchXe.Location = new System.Drawing.Point(475, 354);
+            this.lbl_SearchXe.Name = "lbl_SearchXe";
+            this.lbl_SearchXe.Size = new System.Drawing.Size(49, 15);
+            this.lbl_SearchXe.TabIndex = 38;
+            this.lbl_SearchXe.Text = "Search:";
+            // 
+            // FrmQuanLiDSChoThue
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(839, 718);
-            this.Controls.Add(this.btn_Xoa);
+            this.Controls.Add(this.btn_SearchXe);
+            this.Controls.Add(this.txb_SearchXe);
+            this.Controls.Add(this.lbl_SearchXe);
+            this.Controls.Add(this.btn_TaoMoi);
+            this.Controls.Add(this.dtgv_BangChinhSuaChoThue);
             this.Controls.Add(this.btn_Sua);
             this.Controls.Add(this.btn_SearchKhachHang);
             this.Controls.Add(this.txb_SearchKhachHang);
@@ -429,11 +475,12 @@
             this.Controls.Add(this.lbl_FirstName);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FrmThemDSChoThue";
+            this.Name = "FrmQuanLiDSChoThue";
             this.Text = "Thêm xe vào danh sách cho thuê";
             this.Load += new System.EventHandler(this.FrmThemDSChoThue_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ptb_Anh)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dtgv_quanlikhachhang)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgv_BangChinhSuaChoThue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -472,6 +519,10 @@
         private System.Windows.Forms.TextBox txb_SearchKhachHang;
         private System.Windows.Forms.Label lbl_SearchKhachHang;
         private System.Windows.Forms.Button btn_Sua;
-        private System.Windows.Forms.Button btn_Xoa;
+        private System.Windows.Forms.DataGridView dtgv_BangChinhSuaChoThue;
+        private System.Windows.Forms.Button btn_TaoMoi;
+        private System.Windows.Forms.Button btn_SearchXe;
+        private System.Windows.Forms.TextBox txb_SearchXe;
+        private System.Windows.Forms.Label lbl_SearchXe;
     }
 }

@@ -56,10 +56,6 @@ namespace DoAnDBMS.view
                     MessageBox.Show(a.Message, "Quản lí xe", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            else
-            {
-                MessageBox.Show("Empty Fileds", "Quản lí xe", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
         }
 
         bool verif()
@@ -107,6 +103,7 @@ namespace DoAnDBMS.view
         private void FrmThemDSChoThue_Load(object sender, EventArgs e)
         {
             fillGridKhachHang(new SqlCommand("Select * From func_TatCaKhachHang ()"));
+            fillGridXe(new SqlCommand("Select * From func_BangChinhSuaDanhSachChoThue()"));
         }
 
         public void fillGridKhachHang(SqlCommand command)
@@ -116,12 +113,86 @@ namespace DoAnDBMS.view
             dtgv_quanlikhachhang.DataSource = quanLiKhachHang.getKhachHang(command);
             dtgv_quanlikhachhang.AllowUserToAddRows = false;
         }
-
+        public void fillGridXe(SqlCommand command)
+        {
+            dtgv_BangChinhSuaChoThue.ReadOnly = true;
+            DataGridViewImageColumn picCol = new DataGridViewImageColumn();
+            dtgv_BangChinhSuaChoThue.RowTemplate.Height = 80;
+            dtgv_BangChinhSuaChoThue.DataSource = quanLiXe.getXe(command);
+            picCol = (DataGridViewImageColumn)dtgv_BangChinhSuaChoThue.Columns[3];
+            picCol.ImageLayout = DataGridViewImageCellLayout.Stretch;
+            dtgv_BangChinhSuaChoThue.AllowUserToAddRows = false;
+        }
         private void dtgv_quanlikhachhang_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             txb_CMND.Text = dtgv_quanlikhachhang.CurrentRow.Cells[0].Value.ToString();
             txb_FirstName.Text = dtgv_quanlikhachhang.CurrentRow.Cells[1].Value.ToString();
             txb_LastName.Text = dtgv_quanlikhachhang.CurrentRow.Cells[2].Value.ToString();
+        }
+
+        private void dtgv_BangChinhSuaChoThue_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            txb_BienSo.Text = dtgv_BangChinhSuaChoThue.CurrentRow.Cells[0].Value.ToString();
+            if (dtgv_BangChinhSuaChoThue.CurrentRow.Cells[1].Value.ToString() == "Xe hoi")
+            {
+                cb_LoaiXe.SelectedIndex = 1;
+            }
+            else
+            {
+                cb_LoaiXe.SelectedIndex = 0;
+            }
+            txb_HieuXe.Text = dtgv_BangChinhSuaChoThue.CurrentRow.Cells[2].Value.ToString();
+            byte[] pic = (byte[])dtgv_BangChinhSuaChoThue.CurrentRow.Cells[3].Value;
+            MemoryStream picture = new MemoryStream(pic);
+            ptb_Anh.Image = Image.FromStream(picture);
+            dtp_NgayHopDong.Value = (DateTime)dtgv_BangChinhSuaChoThue.CurrentRow.Cells[4].Value;
+            dtp_NgayGiaoXe.Value = (DateTime)dtgv_BangChinhSuaChoThue.CurrentRow.Cells[5].Value;
+            dtp_NgayHetHanThue.Value = (DateTime)dtgv_BangChinhSuaChoThue.CurrentRow.Cells[6].Value;
+            txb_TriGiaHD.Text = dtgv_BangChinhSuaChoThue.CurrentRow.Cells[7].Value.ToString();
+        }
+
+        private void btn_TaoMoi_Click(object sender, EventArgs e)
+        {
+            fillGridKhachHang(new SqlCommand("Select * From func_TatCaKhachHang ()"));
+            fillGridXe(new SqlCommand("Select * From func_BangChinhSuaDanhSachChoThue()"));
+        }
+
+        private void btn_Sua_Click(object sender, EventArgs e)
+        {
+            string loaixe;
+            string hieuxe = txb_HieuXe.Text;
+            if (cb_LoaiXe.SelectedIndex == 0)
+            {
+                loaixe = "Xe máy";
+            }
+            else
+            {
+                loaixe = "Xe hơi";
+            }
+            string bienso = txb_BienSo.Text;
+            MemoryStream pic = new MemoryStream();
+            DateTime ngayhd = dtp_NgayHopDong.Value;
+            double trigiahd = Convert.ToDouble(txb_TriGiaHD.Text);
+            DateTime ngaygiaoxe = dtp_NgayGiaoXe.Value;
+            DateTime ngayhethanthue = dtp_NgayHetHanThue.Value;
+            if (verif())
+            {
+                ptb_Anh.Image.Save(pic, ptb_Anh.Image.RawFormat);
+                try
+                {
+                    quanLiXe.updateChoThueXe(bienso, loaixe, hieuxe, pic, ngayhd, ngaygiaoxe, ngayhethanthue, trigiahd);
+                    MessageBox.Show("Chỉnh sửa thành công", "Quản lí xe", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception a)
+                {
+                    MessageBox.Show(a.Message, "Quản lí xe", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btn_SearchXe_Click(object sender, EventArgs e)
+        {
+            fillGridXe(new SqlCommand("Select * From func_TimKiemTrongBangChinhSuaDanhSachChoThue('" + txb_SearchXe.Text + "')"));
         }
     }
 }

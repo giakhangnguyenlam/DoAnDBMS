@@ -335,6 +335,7 @@
             this.btn_SearchXe.TabIndex = 37;
             this.btn_SearchXe.Text = "Search";
             this.btn_SearchXe.UseVisualStyleBackColor = true;
+            this.btn_SearchXe.Click += new System.EventHandler(this.btn_SearchXe_Click);
             // 
             // txb_SearchXe
             // 
@@ -361,7 +362,7 @@
             this.dtgv_QuanLiThueXe.TabIndex = 38;
             this.dtgv_QuanLiThueXe.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtgv_QuanLiThueXe_CellClick);
             // 
-            // FrmThueXe
+            // FrmQuanLiDSThueXe
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -398,7 +399,7 @@
             this.Controls.Add(this.lbl_CMND);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "FrmThueXe";
+            this.Name = "FrmQuanLiDSThueXe";
             this.Text = "Thêm xe vào danh sách cho thuê";
             this.Load += new System.EventHandler(this.FrmThueXe_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ptb_Anh)).EndInit();

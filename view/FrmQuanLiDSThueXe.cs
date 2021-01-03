@@ -136,5 +136,11 @@ namespace DoAnDBMS.view
             fillGridKhachHang(new SqlCommand("Select * From func_TatCaKhachHang ()"));
             fillGridXe(new SqlCommand("Select * From func_XeChuaDuocThue()"));
         }
+
+        private void btn_SearchXe_Click(object sender, EventArgs e)
+        {
+            String hieuxe = txb_SearchXe.Text;
+            fillGridXe(new SqlCommand("Select * From func_TimKiemXeChuaDuocThue('" + hieuxe+"')"));
+        }
     }
 }

@@ -38,6 +38,33 @@ namespace DoAnDBMS.DAO
             }
         }
 
+        public bool updateChoThueXe(String bienso, String loaixe, String hieuxe, MemoryStream pic, DateTime ngayhd, DateTime ngaygiaoxe, DateTime ngayhethanthue, double trigiahd)
+        {
+            SqlCommand command = new SqlCommand("Exec pro_ChinhSuaDanhSachChoThue @bienso, @loaixe, @hieuxe, @hinhanh, @ngayhd, @ngayhieuluc, @ngayhethan, @trigiahd", mydb.getConnection);
+            command.Parameters.Add("@bienso", SqlDbType.VarChar).Value = bienso;
+            command.Parameters.Add("@loaixe", SqlDbType.VarChar).Value = loaixe;
+            command.Parameters.Add("@hieuxe", SqlDbType.VarChar).Value = hieuxe;
+            command.Parameters.Add("@hinhanh", SqlDbType.Image).Value = pic.ToArray();
+            command.Parameters.Add("@ngayhd", SqlDbType.Date).Value = ngayhd;
+            command.Parameters.Add("@ngayhieuluc", SqlDbType.Date).Value = ngaygiaoxe;
+            command.Parameters.Add("@ngayhethan", SqlDbType.Date).Value = ngayhethanthue;
+            command.Parameters.Add("@trigiahd", SqlDbType.Money).Value = trigiahd;
+
+            mydb.openConnection();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                mydb.closeConnection();
+                return true;
+            }
+            else
+            {
+                mydb.closeConnection();
+                return false;
+            }
+        }
+
+
+
         public bool addThueXe(DateTime ngayhopdong, DateTime ngayhieuluc, DateTime ngayhethan, double trigiahd, String cid, String bienso)
         {
             SqlCommand command = new SqlCommand("Exec pro_ThemVaoDanhSachThue @ngayhd , @ngayhieuluc , @ngayhethan , @trigiahd , @cid , @bienso", mydb.getConnection);

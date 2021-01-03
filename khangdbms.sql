@@ -138,9 +138,7 @@ Begin Transaction
 Commit
 Go
 
---trigger khi thêm vào dbo,chitiethopdong thì thêm vào luôn dbo.hopdong
-
-
+--Xóa hợp đồng
 Create proc pro_XoaHopDong(@sohd int)
 AS
 Begin Transaction
@@ -160,6 +158,35 @@ Commit
 go
 
 
+--Chỉnh sửa danh sách cho thuê
+Alter proc pro_ChinhSuaDanhSachChoThue(@bienso VARCHAR(20), @loaixe NVARCHAR(50), @hieuxe NVARCHAR(50), @hinhanh IMAGE, @ngayhd DATE, @ngayhieuluc DATE, @ngayhethan DATE, @trigiahd MONEY)
+As
+Begin transaction
+	update dbo.xe set loaixe=@loaixe, hieuxe=@hieuxe, hinhanh=@hinhanh Where bienso=@bienso
+	declare @sohd int
+	Select @sohd = hopdong.sohd From dbo.hopdong, dbo.chitiethd Where bienso=@bienso 
+	Update dbo.chitiethd Set ngayhd=@ngayhd, ngayhieuluc=@ngayhieuluc, ngayhethan=@ngayhethan, trigiahd=@trigiahd Where sohd=@sohd
+commit
+go
+
+--Bảng chỉnh sửa danh sách cho thuê
+create function func_BangChinhSuaDanhSachChoThue()
+Returns table
+As return
+	Select xe.bienso, loaixe, hieuxe, hinhanh, ngayhd, ngayhieuluc, ngayhethan, trigiahd 
+	From dbo.xe, dbo.hopdong, dbo.chitiethd 
+	Where xe.bienso=hopdong.bienso AND hopdong.sohd = chitiethd.sohd
+go
+
+--Tìm kiếm trong bảng chỉnh sửa danh sách cho thuê
+Create function func_TimKiemTrongBangChinhSuaDanhSachChoThue(@bienso VARCHAR(20))
+Returns table
+As return 
+	Select * from func_BangChinhSuaDanhSachChoThue() Where bienso like '%' + @bienso +'%'
+go
+
+
+--Thêm vào danh sách thuê
 Alter proc pro_ThemVaoDanhSachThue(@ngayhd DATE, @ngayhieuluc DATE, @ngayhethan DATE, @trigiahd MONEY, @cid VARCHAR(20), @bienso VARCHAR(20))
 AS
 Begin Transaction
@@ -168,22 +195,65 @@ Begin Transaction
 Commit
 go
 
-
-Create function func_XeChuaDuocThue()
+--Bảng xe chưa được thuê
+Alter function func_XeChuaDuocThue()
 returns table
 As return 
-	Select * from dbo.xe Where cosan=1
+	Select xe.bienso, loaixe, hieuxe, hinhanh, ngayhethan from dbo.xe, dbo.hopdong, dbo.chitiethd  Where cosan=1 AND xe.bienso = hopdong.bienso AND hopdong.sohd = chitiethd.sohd
 go
 
-
+--Bảng tìm kiếm xe chưa được thuê
+Create function func_TimKiemXeChuaDuocThue(@hieuxe NVARCHAR(50))
+returns table
+As return
+	Select * from func_XeChuaDuocThue() Where hieuxe like '%' + @hieuxe + '%'
+go
 
 
 --<<====================================================Thanh toán hợp đồng====================================================>>
 --thực hiện thanh toán hợp đồng
-create proc proc_ThemThanhToanHopDong(@sohd int, @fname NVARCHAR, @lname NVARCHAR, @thoigiantt DATETIME, @sotien MONEY)
+Alter proc pro_ThemThanhToanHopDong(@sohd int, @fname NVARCHAR(50), @lname NVARCHAR(50), @thoigiantt DATETIME, @sotien MONEY)
+AS
+Begin
+	Insert into dbo.thanhtoanhd (sohd, fname, lname, thoigiantt, sotien) Values (@sohd, @fname, @lname, @thoigiantt, @sotien)
+end
+go
+
+--Thanh toán hợp đồng thuê
+Alter proc pro_ThemThanhToanHopDongThue(@sohd int, @fname NVARCHAR(50), @lname NVARCHAR(50), @thoigiantt DATETIME, @sotien MONEY)
 AS
 Begin transaction
-	exec proc_XoaHopDong @sohd
-	Insert into dbo.thanhtoanhd (sohd, fname, lname, thoigiantt, sotien) Values (@sohd, @fname, @lname, @thoigiantt, @sotien)
+	declare @bienso VARCHAR(20)
+	Select @bienso = bienso  From hopdong Where sohd = @sohd
+	Exec pro_ThemThanhToanHopDong @sohd, @fname, @lname, @thoigiantt, @sotien
+	update dbo.xe set cosan = 1 Where bienso = @bienso
+	Delete From dbo.hopdong Where sohd=@sohd 
 commit
+go
 
+--Thanh toán hợp đồng cho thuê
+Alter proc pro_ThemThanhToanHopDongChoThue(@sohd int, @fname NVARCHAR(50), @lname NVARCHAR(50), @thoigiantt DATETIME, @sotien MONEY)
+As
+Begin Transaction
+	declare @bienso VARCHAR(20)
+	Select @bienso = bienso From hopdong Where sohd = @sohd
+	Exec pro_ThemThanhToanHopDong @sohd, @fname, @lname, @thoigiantt, @sotien
+	Delete From dbo.hopdong Where sohd=@sohd 
+	Exec pro_XoaXe @bienso
+commit
+go
+
+
+--Bảng thanh toán 
+Alter function func_BangThanhToan()
+returns table
+As
+return
+	Select khachhang.cid, fname, lname, loaixe, hieuxe, xe.bienso, hinhanh, ngayhd, trigiahd, ngayhieuluc, ngayhethan, loaihd, hopdong.sohd
+	From dbo.khachhang, dbo.xe, dbo.chitiethd, dbo.hopdong
+	Where khachhang.cid = hopdong.cid AND xe.bienso = hopdong.bienso AND chitiethd.sohd = hopdong.sohd
+go
+
+Select * from dbo.thanhtoanhd
+go
+Exec pro_ThemThanhToanHopDongThue 1006, 'khang', 'nguyen', '2021-01-03 09:47:51.347', 10000
