@@ -20,11 +20,30 @@ namespace DoAnDBMS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //FrmQuanLiKhachHang test = new FrmQuanLiKhachHang();
+            FrmQuanLiKhachHang test = new FrmQuanLiKhachHang();
             //FrmThemDSThue test = new FrmThemDSThue();
-            FrmThueXe test = new FrmThueXe();
+            //FrmThueXe test = new FrmThueXe();
+            //FrmThanhToanHopDong test = new FrmThanhToanHopDong();
             test.Show();
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FrmQuanLiDSChoThue test = new FrmQuanLiDSChoThue();
+            test.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FrmQuanLiDSThueXe test = new FrmQuanLiDSThueXe();
+            test.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            FrmThanhToanHopDong test = new FrmThanhToanHopDong();
+            test.Show();
         }
     }
 }

@@ -78,23 +78,23 @@
     <Compile Include="view\FrmQuanLiKhachHang.Designer.cs">
       <DependentUpon>FrmQuanLiKhachHang.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\FrmThemDSThue.cs">
+    <Compile Include="view\FrmThanhToanHopDong.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\FrmThemDSThue.Designer.cs">
-      <DependentUpon>FrmThemDSThue.cs</DependentUpon>
+    <Compile Include="view\FrmThanhToanHopDong.Designer.cs">
+      <DependentUpon>FrmThanhToanHopDong.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\FrmQuanLiXe.cs">
+    <Compile Include="view\FrmQuanLiDSChoThue.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\FrmQuanLiXe.Designer.cs">
-      <DependentUpon>FrmQuanLiXe.cs</DependentUpon>
+    <Compile Include="view\FrmQuanLiDSChoThue.Designer.cs">
+      <DependentUpon>FrmQuanLiDSChoThue.cs</DependentUpon>
     </Compile>
-    <Compile Include="view\FrmThueXe.cs">
+    <Compile Include="view\FrmQuanLiDSThueXe.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="view\FrmThueXe.Designer.cs">
-      <DependentUpon>FrmThueXe.cs</DependentUpon>
+    <Compile Include="view\FrmQuanLiDSThueXe.Designer.cs">
+      <DependentUpon>FrmQuanLiDSThueXe.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -111,11 +111,14 @@
     <EmbeddedResource Include="view\FrmQuanLiKhachHang.resx">
       <DependentUpon>FrmQuanLiKhachHang.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\FrmThemDSThue.resx">
-      <DependentUpon>FrmThemDSThue.cs</DependentUpon>
+    <EmbeddedResource Include="view\FrmThanhToanHopDong.resx">
+      <DependentUpon>FrmThanhToanHopDong.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="view\FrmThueXe.resx">
-      <DependentUpon>FrmThueXe.cs</DependentUpon>
+    <EmbeddedResource Include="view\FrmQuanLiDSChoThue.resx">
+      <DependentUpon>FrmQuanLiDSChoThue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="view\FrmQuanLiDSThueXe.resx">
+      <DependentUpon>FrmQuanLiDSThueXe.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

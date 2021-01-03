@@ -14,9 +14,9 @@ using System.Windows.Forms;
 
 namespace DoAnDBMS.view
 {
-    public partial class FrmThemDSThue : Form
+    public partial class FrmQuanLiDSChoThue : Form
     {
-        public FrmThemDSThue()
+        public FrmQuanLiDSChoThue()
         {
             InitializeComponent();
         }

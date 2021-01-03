@@ -67,5 +67,47 @@ namespace DoAnDBMS.DAO
             adapter.Fill(table);
             return table;
         }
+
+        public bool addThanhToanHopDongThue(int sohd, String fname, String lname, DateTime thoigiantt, double sotien)
+        {
+            SqlCommand command = new SqlCommand("Exec pro_ThemThanhToanHopDongThue @sohd, @fname, @lname, @thoigiantt, @sotien", mydb.getConnection);
+            command.Parameters.Add("@sohd", SqlDbType.Int).Value = sohd;
+            command.Parameters.Add("@fname", SqlDbType.VarChar).Value = fname;
+            command.Parameters.Add("@lname", SqlDbType.VarChar).Value = lname;
+            command.Parameters.Add("@thoigiantt", SqlDbType.DateTime).Value = thoigiantt;
+            command.Parameters.Add("@sotien", SqlDbType.Money).Value = sotien;
+            mydb.openConnection();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                mydb.closeConnection();
+                return true;
+            }
+            else
+            {
+                mydb.closeConnection();
+                return false;
+            }
+        }
+
+        public bool addThanhToanHopDongChoThue(int sohd, String fname, String lname, DateTime thoigiantt, double sotien)
+        {
+            SqlCommand command = new SqlCommand("Exec pro_ThemThanhToanHopDongChoThue @sohd, @fname, @lname, @thoigiantt, @sotien", mydb.getConnection);
+            command.Parameters.Add("@sohd", SqlDbType.Int).Value = sohd;
+            command.Parameters.Add("@fname", SqlDbType.VarChar).Value = fname;
+            command.Parameters.Add("@lname", SqlDbType.VarChar).Value = lname;
+            command.Parameters.Add("@thoigiantt", SqlDbType.DateTime).Value = thoigiantt;
+            command.Parameters.Add("@sotien", SqlDbType.Money).Value = sotien;
+            mydb.openConnection();
+            if (command.ExecuteNonQuery() == 1)
+            {
+                mydb.closeConnection();
+                return true;
+            }
+            else
+            {
+                mydb.closeConnection();
+                return false;
+            }
+        }
     }
 }
